@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getInvestors } from "../api/investors";
 import type { Investor } from "../api/investors";
 import "./Investors.css";
+import LogoutButton from "../components/LogoutButton";
 
 function Investors() {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ function Investors() {
     const [investors, setInvestors] = useState<Investor[]>([]);
 
     const [investorType, setInvestorType] = useState<
-        "" | "INDIVIDUAL" | "CORPORATE"
+        "" | "INDIVIDUAL" | "ENTERPRISE"
     >("");
 
     const [search, setSearch] = useState("");
@@ -106,6 +107,17 @@ function Investors() {
 
     const totalPages = Math.ceil(total / limit);
 
+    const formatDate = (value: string) => {
+        if (!value) return "—";
+
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+
+        return date.toLocaleDateString("vi-VN");
+    };
+
     const getStatusClass = (value: string) => {
         switch (value) {
             case "APPROVED":
@@ -134,7 +146,7 @@ function Investors() {
                 return "Từ chối";
 
             default:
-                return value;
+                return "Không xác định";
         }
     };
 
@@ -143,11 +155,11 @@ function Investors() {
             case "INDIVIDUAL":
                 return "Cá nhân";
 
-            case "CORPORATE":
+            case "ENTERPRISE":
                 return "Doanh nghiệp";
 
             default:
-                return value;
+                return "Không xác định";
         }
     };
 
@@ -163,20 +175,20 @@ function Investors() {
                         </h1>
 
                         <p className="page-description">
-                            Quản lý và theo dõi thông tin
-                            các nhà đầu tư
+                            Quản lý và theo dõi thông tin các nhà đầu tư
                         </p>
                     </div>
+
+                    <LogoutButton />
                 </div>
 
                 {/* Tabs */}
                 <div className="investor-tabs">
                     <button
-                        className={`investor-tab ${
-                            investorType === ""
+                        className={`investor-tab ${investorType === ""
                                 ? "active"
                                 : ""
-                        }`}
+                            }`}
                         onClick={() =>
                             setInvestorType("")
                         }
@@ -185,12 +197,11 @@ function Investors() {
                     </button>
 
                     <button
-                        className={`investor-tab ${
-                            investorType ===
-                            "INDIVIDUAL"
+                        className={`investor-tab ${investorType ===
+                                "INDIVIDUAL"
                                 ? "active"
                                 : ""
-                        }`}
+                            }`}
                         onClick={() =>
                             setInvestorType(
                                 "INDIVIDUAL"
@@ -201,15 +212,14 @@ function Investors() {
                     </button>
 
                     <button
-                        className={`investor-tab ${
-                            investorType ===
-                            "CORPORATE"
+                        className={`investor-tab ${investorType ===
+                                "ENTERPRISE"
                                 ? "active"
                                 : ""
-                        }`}
+                            }`}
                         onClick={() =>
                             setInvestorType(
-                                "CORPORATE"
+                                "ENTERPRISE"
                             )
                         }
                     >
@@ -270,8 +280,12 @@ function Investors() {
                             <tr>
                                 <th>Mã TKGD</th>
                                 <th>Họ tên</th>
-                                <th>Loại nhà đầu tư</th>
+                                <th>Loại</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
                                 <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
 
@@ -279,17 +293,17 @@ function Investors() {
                             {loading ? (
                                 <tr>
                                     <td
-                                        colSpan={4}
+                                        colSpan={8}
                                         className="table-empty"
                                     >
                                         Đang tải dữ liệu...
                                     </td>
                                 </tr>
                             ) : investors.length ===
-                              0 ? (
+                                0 ? (
                                 <tr>
                                     <td
-                                        colSpan={4}
+                                        colSpan={8}
                                         className="table-empty"
                                     >
                                         Không tìm thấy nhà
@@ -304,11 +318,6 @@ function Investors() {
                                                 investor.investorCode
                                             }
                                             className="investor-row"
-                                            onClick={() =>
-                                                navigate(
-                                                    `/investors/${investor.investorCode}`
-                                                )
-                                            }
                                         >
                                             <td>
                                                 <span className="investor-code-cell">
@@ -335,6 +344,18 @@ function Investors() {
                                             </td>
 
                                             <td>
+                                                {
+                                                    investor.email
+                                                }
+                                            </td>
+
+                                            <td>
+                                                {
+                                                    investor.phoneNumber
+                                                }
+                                            </td>
+
+                                            <td>
                                                 <span
                                                     className={getStatusClass(
                                                         investor.status
@@ -344,6 +365,27 @@ function Investors() {
                                                         investor.status
                                                     )}
                                                 </span>
+                                            </td>
+
+                                            <td>
+                                                {formatDate(
+                                                    investor.createdAt
+                                                )}
+                                            </td>
+
+                                            <td className="table-action-cell">
+                                                <button
+                                                    type="button"
+                                                    className="table-action-button"
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/investors/${investor.investorCode}`
+                                                        )
+                                                    }
+                                                    aria-label={`Xem chi tiết ${investor.investorName}`}
+                                                >
+                                                    ↗
+                                                </button>
                                             </td>
                                         </tr>
                                     )
@@ -357,13 +399,12 @@ function Investors() {
                         <div className="pagination-info">
                             {total === 0
                                 ? "Không có dữ liệu"
-                                : `Hiển thị ${
-                                      offset + 1
-                                  }–${Math.min(
-                                      offset +
-                                          investors.length,
-                                      total
-                                  )} trong ${total} bản ghi`}
+                                : `Hiển thị ${offset + 1
+                                }–${Math.min(
+                                    offset +
+                                    investors.length,
+                                    total
+                                )} trong ${total} bản ghi`}
                         </div>
 
                         <div className="pagination-buttons">
@@ -389,7 +430,7 @@ function Investors() {
                                 className="pagination-button"
                                 disabled={
                                     page >=
-                                        totalPages ||
+                                    totalPages ||
                                     totalPages === 0
                                 }
                                 onClick={() =>

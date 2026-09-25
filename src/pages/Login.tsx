@@ -4,6 +4,7 @@ import { login } from "../api/auth";
 import { authStorage } from "../api/authStorage";
 import { getMe } from "../api/user";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -41,9 +42,9 @@ function Login() {
 
             const me = await getMe();
 
-console.log("Current user:", me);
+            console.log("Current user:", me);
 
-navigate("/investors");
+            navigate("/investors");
 
             console.log("Login successful");
 
@@ -57,40 +58,75 @@ navigate("/investors");
     };
 
     return (
-        <div>
-            <h1>Đăng nhập</h1>
+        <div className="login-page">
+            <div className="login-card">
+                <div className="login-header">
+                    <h1 className="login-title">
+                        Đăng nhập
+                    </h1>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Tài khoản</label>
-
-                    <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(event) => setUsername(event.target.value)}
-                        placeholder="Nhập tài khoản"
-                    />
+                    <p className="login-description">
+                        Đăng nhập vào hệ thống quản lý
+                    </p>
                 </div>
 
-                <div>
-                    <label htmlFor="password">Mật khẩu</label>
+                <form
+                    className="login-form"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="login-field">
+                        <label className="login-label">
+                            Tài khoản
+                        </label>
 
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        placeholder="Nhập mật khẩu"
-                    />
+                        <input
+                            className="login-input"
+                            type="text"
+                            placeholder="Nhập tài khoản"
+                            value={username}
+                            onChange={(e) =>
+                                setUsername(e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div className="login-field">
+                        <label className="login-label">
+                            Mật khẩu
+                        </label>
+
+                        <input
+                            className="login-input"
+                            type="password"
+                            placeholder="Nhập mật khẩu"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                        />
+                    </div>
+
+                    {error && (
+                        <p className="login-error">
+                            {error}
+                        </p>
+                    )}
+
+                    <button
+                        className="login-button"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Đang đăng nhập..."
+                            : "Đăng nhập"}
+                    </button>
+                </form>
+
+                <div className="login-footer">
+                    Investor Management System
                 </div>
-
-                {error && <p>{error}</p>}
-
-                <button type="submit" disabled={loading}>
-                    {loading ? "Đang đăng nhập..." : "Đăng nhập"}
-                </button>
-            </form>
+            </div>
         </div>
     );
 }

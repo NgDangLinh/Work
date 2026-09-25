@@ -5,16 +5,13 @@
 .investor-detail-page {
     min-height: 100vh;
     box-sizing: border-box;
-
     padding: 28px 32px 48px;
-
-    background: #f5f7fa;
+    background: #f3f5f8;
 }
 
 .investor-detail-container {
     width: 100%;
     max-width: 1180px;
-
     margin: 0 auto;
 }
 
@@ -27,32 +24,49 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 18px;
+}
 
-    margin-bottom: 24px;
+.back-button,
+.logout-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
 }
 
 .back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-
-    padding: 8px 0;
-
-    border: none;
+    gap: 8px;
+    padding-left: 0;
+    border-color: transparent;
     background: transparent;
-
-    color: #667085;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: color 0.2s ease;
+    color: #475467;
 }
 
-.back-button:hover {
-    color: #2563eb;
+.back-button:hover,
+.logout-button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(148, 163, 184, 0.4);
+    background: rgba(255, 255, 255, 0.5);
+    color: #111827;
+}
+
+.logout-button {
+    border-color: #d0d5dd;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
 }
 
 
@@ -62,29 +76,25 @@
 
 .investor-detail-header {
     margin-bottom: 28px;
+    text-align: center;
 }
 
 .investor-detail-header h1 {
     margin: 0;
-
-    color: #172033;
-
-    font-size: 30px;
-    line-height: 1.25;
-    font-weight: 700;
-
-    letter-spacing: -0.5px;
+    color: #1f2a37;
+    font-size: clamp(2.2rem, 3vw, 4rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .investor-detail-code {
-    margin: 7px 0 0;
-
-    color: #667085;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    letter-spacing: 0.2px;
+    margin: 12px 0 0;
+    color: #475467;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
 }
 
 
@@ -94,18 +104,13 @@
 
 .investor-detail-card {
     width: 100%;
-
     box-sizing: border-box;
-
-    background: #ffffff;
-
-    border: 1px solid #e4e7ec;
-    border-radius: 12px;
-
-    box-shadow:
-        0 1px 2px rgba(16, 24, 40, 0.04);
-
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 
@@ -114,27 +119,22 @@
 ======================================== */
 
 .detail-card-header {
-    min-height: 72px;
-
+    min-height: 78px;
     box-sizing: border-box;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 24px;
-
-    border-bottom: 1px solid #eaecf0;
+    padding: 0 28px;
+    border-bottom: 1px solid #edf1f5;
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.9), rgba(255, 255, 255, 0.96));
 }
 
 .detail-card-title {
     margin: 0;
-
-    color: #172033;
-
-    font-size: 18px;
+    color: #1f2937;
+    font-size: 1.1rem;
     line-height: 1.4;
-    font-weight: 650;
+    font-weight: 700;
 }
 
 
@@ -145,61 +145,56 @@
 .detail-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .primary-button,
 .secondary-button {
-    height: 38px;
-
-    padding: 0 15px;
-
-    border-radius: 7px;
-
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
     font-family: inherit;
     font-size: 14px;
-    font-weight: 600;
-
+    font-weight: 700;
     cursor: pointer;
-
     transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
+        transform 0.2s ease,
         box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        border-color 0.2s ease,
+        opacity 0.2s ease,
+        background 0.2s ease;
 }
 
 .primary-button {
     border: 1px solid #2563eb;
-
-    background: #2563eb;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: #ffffff;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
 }
 
 .primary-button:hover:not(:disabled) {
-    background: #1d4ed8;
-    border-color: #1d4ed8;
-
-    box-shadow:
-        0 2px 5px rgba(37, 99, 235, 0.18);
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
 }
 
 .secondary-button {
     border: 1px solid #d0d5dd;
-
     background: #ffffff;
     color: #344054;
 }
 
 .secondary-button:hover:not(:disabled) {
-    background: #f9fafb;
-    border-color: #98a2b3;
+    background: #f8fafc;
+    border-color: #cbd5e1;
 }
 
 .primary-button:disabled,
 .secondary-button:disabled {
-    opacity: 0.55;
+    opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 
@@ -208,7 +203,7 @@
 ======================================== */
 
 .investor-detail-content {
-    padding: 28px 32px 30px;
+    padding: 32px 30px 28px;
 }
 
 
@@ -218,11 +213,9 @@
 
 .investor-detail-grid {
     display: grid;
-
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-
-    column-gap: 72px;
-    row-gap: 24px;
+    column-gap: 82px;
+    row-gap: 26px;
 }
 
 
@@ -232,20 +225,15 @@
 
 .detail-item {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
-
-    gap: 7px;
-
+    gap: 10px;
     padding-bottom: 2px;
 }
 
 .detail-label {
     display: block;
-
     color: #667085;
-
     font-size: 13px;
     line-height: 18px;
     font-weight: 500;
@@ -253,15 +241,11 @@
 
 .detail-value {
     display: block;
-
     min-height: 22px;
-
-    color: #172033;
-
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 500;
-
+    color: #111827;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    font-weight: 700;
     word-break: break-word;
 }
 
@@ -272,7 +256,6 @@
 
 .detail-item.full-width {
     grid-column: 1 / -1;
-
     margin-top: 2px;
 }
 
@@ -283,35 +266,30 @@
 
 .detail-status {
     width: fit-content;
-
     display: inline-flex;
     align-items: center;
-
-    min-height: 28px;
-
+    min-height: 30px;
     box-sizing: border-box;
-
-    padding: 0 10px;
-
+    padding: 0 12px;
     border-radius: 999px;
-
     font-size: 12px;
     line-height: 1;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.02em;
 }
 
 .detail-status.approved {
-    background: #ecfdf3;
+    background: #e8f9ef;
     color: #027a48;
 }
 
 .detail-status.pending {
-    background: #fffaeb;
+    background: #fff7e6;
     color: #b54708;
 }
 
 .detail-status.rejected {
-    background: #fef3f2;
+    background: #feefee;
     color: #b42318;
 }
 
@@ -323,26 +301,20 @@
 .detail-input,
 .detail-select {
     width: 100%;
-    height: 40px;
-
+    height: 42px;
     box-sizing: border-box;
-
-    padding: 0 11px;
-
+    padding: 0 14px;
     border: 1px solid #d0d5dd;
-    border-radius: 7px;
-
+    border-radius: 10px;
     background: #ffffff;
-    color: #172033;
-
+    color: #111827;
     outline: none;
-
     font-family: inherit;
     font-size: 14px;
-
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 .detail-input:hover,
@@ -352,10 +324,8 @@
 
 .detail-input:focus,
 .detail-select:focus {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
 }
 
 
@@ -365,7 +335,7 @@
 
 .detail-readonly {
     color: #667085;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 
@@ -375,15 +345,11 @@
 
 .detail-state {
     min-height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: #f5f7fa;
-
+    background: #f3f5f8;
     color: #667085;
-
     font-size: 14px;
 }
 
@@ -421,17 +387,14 @@
     }
 
     .investor-detail-header h1 {
-        font-size: 24px;
+        font-size: 2rem;
     }
 
     .detail-card-header {
         min-height: auto;
-
         flex-direction: column;
         align-items: stretch;
-
         gap: 16px;
-
         padding: 18px 20px;
     }
 
@@ -449,7 +412,6 @@
 
     .investor-detail-grid {
         grid-template-columns: 1fr;
-
         row-gap: 20px;
     }
 
