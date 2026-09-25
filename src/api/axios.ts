@@ -1,11 +1,21 @@
 import axios from "axios";
+import { authStorage } from "./authStorage";
 
 const api = axios.create({
-    // domain api
-  baseURL: "https://059.nt-member.newgen.dev",
-  headers: {
-    "Content-Type": "application/json",
-  },
+    baseURL: "https://059.nt-member.newgen.dev",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+api.interceptors.request.use((config) => {
+    const token = authStorage.getAccessToken();
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
 });
 
 export default api;
